@@ -1,0 +1,40 @@
+{% extends 'myauth/base.html' %}
+
+{% block title %}
+    Profile details
+{% endblock %}
+
+{% block body %}
+    <h1>Profile info</h1>
+    <h2>Details</h2>
+    {% if object.avatar %}
+        <img src="{{ object.avatar.url }}" alt="{{ object.avatar.name }}">
+    {% else %}
+        <p>No avatar</p>
+    {% endif %}
+
+    <p>Username: {{ object.user.username }}</p>
+    <p>First name: {{ object.user.first_name }}</p>
+    <p>Last name: {{ object.user.last_name }}</p>
+    <p>Email: {{ object.user.email }}</p>
+    <p>Bio: {{ object.bio }}</p>
+    {% if object.active_products.all %}
+    <p>Created products:</p>
+        <ul>
+            {% for product in object.active_products.all %}
+                <li> <a href="{% url 'shopapp:products_details' pk=product.pk %}">Name: {{product.name}}</a> </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if request.user.is_staff or request.user == object.user %}
+        <div>
+            <a href="{% url 'myauth:about-me-update' pk=object.pk %}">Update profile</a>
+        </div>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'myauth:profile-list'%}">Back to profiles</a>
+    </div>
+{% endblock %}
+

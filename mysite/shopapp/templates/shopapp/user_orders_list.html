@@ -1,0 +1,38 @@
+{% extends 'shopapp/base.html'%}
+
+{% load cache %}
+
+{% block title %}
+User #{{ target_user.id }} Orders list
+{% endblock %}
+
+{% block body %}
+<h1>Orders for user: {{ target_user.username }}</h1>
+{% if orders %}
+{% cache 120 orders target_user.id %}
+<div>
+    {% for order in orders %}
+    <div>
+        <h3>Order №{{ order.id }} (Created: {{ order.created_at|date:"Y-m-d H:i" }})</h3>
+        <p>Address: {{order.delivery_address}}</p>
+        <div>
+            Products in order:
+
+            <ul>
+                {% for product in order.products.all %}
+                <li> {{product.name}} for ${{product.price}}</li>
+                {% empty %}
+                <li>No products in this order.</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% endcache %}
+{% else %}
+<h3>No orders yet</h3>
+{% endif %}
+{% endblock %}

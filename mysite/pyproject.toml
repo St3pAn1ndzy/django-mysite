@@ -1,0 +1,21 @@
+[project]
+name = "mysite"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Stepan Obukhov",email = "stepanobukhov2009@gmail.com"}
+]
+requires-python = ">=3.12"
+dependencies = [
+    "django (>=6.1,<7.0)",
+    "django-debug-toolbar (>=7.1.0,<8.0.0)",
+    "django-filter (>=26.1,<27.0)",
+    "pillow (>=12.3.0,<13.0.0)",
+    "gunicorn (>=26.0.0,<27.0.0)",
+    "djangorestframework (>=3.18.0,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
