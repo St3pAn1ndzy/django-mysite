@@ -1,6 +1,7 @@
 services:
   app:
     build:
+      context: .
       dockerfile: ./Dockerfile
     command: >
       sh -c "python manage.py migrate && 
